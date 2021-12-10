@@ -3,14 +3,14 @@ import { Category } from "../model/Category";
 interface ICreateCategoryDTO{
   name: string;
   description: string;
-}
+};
 
 class CategoriesRepository {
   private categories: Category [];
 
   constructor() {
     this.categories = [];
-  }
+  };
 
   create({ name, description }: ICreateCategoryDTO ): Category {
     const categoty = new Category();
@@ -24,11 +24,11 @@ class CategoriesRepository {
     this.categories.push(categoty);
 
     return categoty;
-  }
+  };
 
   list(): Category[] {
     return this.categories;
-  }
+  };
 
   findByName(name: string): Category | undefined {
     const category = this.categories.find(
@@ -36,7 +36,7 @@ class CategoriesRepository {
     );
 
     return category;
-  }
-}
+  };
+};
 
 export { CategoriesRepository }
