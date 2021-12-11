@@ -1,6 +1,6 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidV4 } from "uuid";
 
-class Category {
+class Specification {
 
   id?: string;
   name!: string;
@@ -9,8 +9,9 @@ class Category {
 
   constructor(){
     if(!this.id)
-      this.id = uuidv4();
+      this.id = uuidV4();
   }
+
 }
 
-export { Category }
+export { Specification }
