@@ -1,3 +1,4 @@
+import { specificationRouter } from "../../../routes/Specification.routes";
 import { Specification } from "../model/Specification";
 import { 
   ICreateSpecificationDTO, 
@@ -6,9 +7,19 @@ import {
 
 class SpecificationRepository implements ISpecificationsRepository {
   private specifications: Specification[];
-
-  constructor(){
+  
+  private static instance: SpecificationRepository;
+  
+  private constructor(){
     this.specifications = [];
+  }
+
+  public static getIntance(): SpecificationRepository{
+    if(!SpecificationRepository.instance){
+      return new SpecificationRepository();
+    }
+
+    return SpecificationRepository.instance;
   }
 
   list(): Specification[] {

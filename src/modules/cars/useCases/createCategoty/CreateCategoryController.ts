@@ -14,7 +14,6 @@ class CreateCategoryController {
     });
 
     return response.status(201).json({category});
-
   }
 }
 
