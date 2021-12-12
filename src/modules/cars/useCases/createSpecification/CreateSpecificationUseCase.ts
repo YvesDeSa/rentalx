@@ -9,10 +9,10 @@ interface IRequest {
 class CreateSpecificationUseCase {
   constructor(private specificationRepository: ISpecificationsRepository) {}
 
-  execute({ name, description }: IRequest): Specification {
-    const categotyAlreadyExistis = this.specificationRepository.findByName(name);
-
-    if(categotyAlreadyExistis){
+  execute({ name , description }: IRequest): Specification {
+    const specificationAlreadyExistis = this.specificationRepository.findByName(name);
+    
+    if(specificationAlreadyExistis){
      throw new Error("Category already existis.");
     };
 

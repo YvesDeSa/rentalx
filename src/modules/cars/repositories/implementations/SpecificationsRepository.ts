@@ -1,25 +1,24 @@
-import { specificationRouter } from "../../../routes/Specification.routes";
-import { Specification } from "../model/Specification";
+import { Specification } from "../../model/Specification";
 import { 
   ICreateSpecificationDTO, 
   ISpecificationsRepository 
-} from "./ISpecificationsRepository";
+} from "../ISpecificationsRepository";
 
 class SpecificationRepository implements ISpecificationsRepository {
   private specifications: Specification[];
   
-  private static instance: SpecificationRepository;
+  private static INSTANCE: SpecificationRepository;
   
   private constructor(){
     this.specifications = [];
   }
 
   public static getIntance(): SpecificationRepository{
-    if(!SpecificationRepository.instance){
-      return new SpecificationRepository();
+    if(!SpecificationRepository.INSTANCE){
+      SpecificationRepository.INSTANCE = new SpecificationRepository();
     }
 
-    return SpecificationRepository.instance;
+    return SpecificationRepository.INSTANCE;
   }
 
   list(): Specification[] {
@@ -28,11 +27,11 @@ class SpecificationRepository implements ISpecificationsRepository {
 
   findByName(name: string): Specification | undefined {
     const specification = this.specifications.find(
-      specificationFind => { specificationFind.name === name }
+      (specification) => specification.name === name
     );
-
     return specification;
-  }
+  };
+
 
   create({ description, name }: ICreateSpecificationDTO): Specification {
     const specification = new Specification();
