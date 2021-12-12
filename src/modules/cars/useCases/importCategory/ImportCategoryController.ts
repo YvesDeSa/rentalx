@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+
 import { ImportCategoryUseCase } from "./ImportCategoryUseCase";
 
 class ImportCategoryController {
@@ -7,7 +8,7 @@ class ImportCategoryController {
   handle(request: Request, response: Response): Response{
     const { file } = request;
     
-    this.importCategoryUseCase.execute(file);
+    file && this.importCategoryUseCase.execute(file);
 
     return response.send();
   }
