@@ -14,7 +14,8 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "dev": "ts-node-dev --transpile-only --inspect --respawn --ignore-watch node_modules src/server"
+    "dev": "ts-node-dev --transpile-only --inspect --respawn --ignore-watch node_modules src/server",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli"
   },
   "devDependencies": {
     "@types/csv-parse": "^1.2.2",
