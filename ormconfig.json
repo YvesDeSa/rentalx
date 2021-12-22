@@ -7,7 +7,7 @@
   "database": "db_rentx",
   "entities": [
     "src/modules/cars/entities/*.ts",
-    "build/src/entity/*.js"
+    "src/modules/accounts/entities/*.ts"
   ],
   "migrations": [
     "./src/database/migrations/*.ts"
