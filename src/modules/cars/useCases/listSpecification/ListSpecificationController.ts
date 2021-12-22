@@ -1,11 +1,13 @@
 import { ListSpecificationUseCase } from "./ListSpecificationUseCase";
 import { Request, Response } from "express";
+import { container } from "tsyringe";
 
 class ListSpecificationController {
-  constructor(private specificationUseCase: ListSpecificationUseCase) {}
 
-  handle(request: Request, response: Response): Response {
-    const all = this.specificationUseCase.execute();
+  async handle(request: Request, response: Response): Promise<Response> {
+    const specificationUseCase = container.resolve(ListSpecificationUseCase);
+
+    const all = await specificationUseCase.execute();
 
     return response.status(200).json(all);
   }

@@ -5,6 +5,10 @@
   "username": "postgres",
   "password": "postgres",
   "database": "db_rentx",
+  "entities": [
+    "src/modules/cars/entities/*.ts",
+    "build/src/entity/*.js"
+  ],
   "migrations": [
     "./src/database/migrations/*.ts"
   ],
