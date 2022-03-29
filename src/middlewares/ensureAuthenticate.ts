@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
+import { AppError } from '../errors/AppError';
 import { UserRepository } from '../modules/accounts/repositories/implementations/UserRepository';
 
-interface TokenPayload {
+interface IPayload {
   iat: number;
   exp: number;
   sub: string;
@@ -17,26 +18,27 @@ export async function ensureAuthenticated(
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new Error('JWT token is missing');
+    throw new AppError('JWT token is missing', 401);
   }
 
   const [, token] = authHeader.split(' ');
 
   try {
-    const decoded = verify(token, "ju54bs38bwnd043hn04pwp234qde6ewf16we");
-
-    const { sub: user_id } = decoded as TokenPayload;
+    const { sub: user_id } = verify(
+      token,
+      "ju54bs38bwnd043hn04pwp234qde6ewf16we"
+    ) as IPayload;
 
     const userRepository = new UserRepository();
     const user = userRepository.findById(user_id);
 
     if (!user) {
-      throw new Error("user does not exists");
+      throw new AppError("user does not exists", 401);
     }
 
     next();
 
   } catch {
-    throw new Error('Invalid JWT token');
+    throw new AppError('Invalid JWT token', 401);
   }
 }

@@ -3,13 +3,14 @@ import { compare } from "bcrypt"
 import { sign } from "jsonwebtoken"
 
 import { IUsersRepository } from "../../repositories/IUsersRepository"
+import { AppError } from "../../../../errors/AppError";
 
 interface IRequest {
   email: string;
   password: string;
 }
 
-interface IResponse{
+interface IResponse {
   user: {
     name: string;
     email: string;
@@ -18,23 +19,23 @@ interface IResponse{
 }
 
 @injectable()
-class AuthenticateUserUseCase{
+class AuthenticateUserUseCase {
   constructor(
     @inject("UserRepository")
     private userRepository: IUsersRepository
-  ) {}
+  ) { }
 
 
-  async execute({ email, password }: IRequest): Promise<IResponse>{
+  async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.userRepository.findByEmail(email);
 
-    if(!user)
-      throw new Error("Email or Password incorrect!");
+    if (!user)
+      throw new AppError("Email or Password incorrect!");
 
     const passwordMatch = await compare(password, user.password);
 
-    if(!passwordMatch)
-      throw new Error("Email or Password incorrect!");
+    if (!passwordMatch)
+      throw new AppError("Email or Password incorrect!");
 
     const token = sign({}, "ju54bs38bwnd043hn04pwp234qde6ewf16we", {
       subject: user.id,
@@ -48,9 +49,9 @@ class AuthenticateUserUseCase{
       },
       token
     };
-    
+
     return tokenResponse;
   }
 }
 
-export { AuthenticateUserUseCase}
+export { AuthenticateUserUseCase }
