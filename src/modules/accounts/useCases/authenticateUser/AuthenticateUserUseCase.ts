@@ -47,7 +47,8 @@ class AuthenticateUserUseCase{
         email: user.email
       },
       token
-    }
+    };
+    
     return tokenResponse;
   }
 }

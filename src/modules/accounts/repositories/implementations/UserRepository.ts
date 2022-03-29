@@ -7,7 +7,7 @@ class UserRepository implements IUsersRepository {
 
   private repository: Repository<User>;
 
-  constructor(){
+  constructor() {
     this.repository = getRepository(User);
   }
 
@@ -24,6 +24,10 @@ class UserRepository implements IUsersRepository {
 
   async findByEmail(email: string): Promise<User | undefined> {
     return await this.repository.findOne({ email });
+  }
+
+  async findById(id: string): Promise<User | undefined> {
+    return await this.repository.findOne(id);
   }
 
 }
